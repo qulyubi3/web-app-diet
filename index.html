@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Diet Pasien</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 { text-align: center; }
+    label { display: block; margin-top: 10px; }
+    input, select, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover { background: #218838; }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #f0f9ff;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Formulir Data Pasien</h2>
+  <form id="dietForm">
+    <label>Nama:</label>
+    <input type="text" id="nama" required>
+
+    <label>Umur:</label>
+    <input type="number" id="umur" required>
+
+    <label>Jenis Kelamin:</label>
+    <select id="kelamin" required>
+      <option value="">-- Pilih --</option>
+      <option value="Laki-laki">Laki-laki</option>
+      <option value="Perempuan">Perempuan</option>
+    </select>
+
+    <label>Jenis Diet:</label>
+    <select id="diet" required>
+      <option value="">-- Pilih --</option>
+      <option value="Diabetes">Diabetes</option>
+      <option value="Rendah Garam">Rendah Garam</option>
+      <option value="Rendah Lemak">Rendah Lemak</option>
+      <option value="Tinggi Protein">Tinggi Protein</option>
+    </select>
+
+    <button type="submit">Kirim</button>
+  </form>
+
+  <div class="result" id="resultBox">
+    <h3>Hasil Rekomendasi Diet</h3>
+    <p id="output"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById("dietForm");
+    const resultBox = document.getElementById("resultBox");
+    const output = document.getElementById("output");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById("nama").value;
+      const umur = document.getElementById("umur").value;
+      const kelamin = document.getElementById("kelamin").value;
+      const diet = document.getElementById("diet").value;
+
+      let saran = "";
+
+      switch(diet) {
+        case "Diabetes":
+          saran = "Batasi gula sederhana, perbanyak sayuran, pilih karbohidrat kompleks (nasi merah, oats), hindari minuman manis.";
+          break;
+        case "Rendah Garam":
+          saran = "Kurangi garam, hindari makanan olahan/instan, gunakan rempah alami sebagai bumbu.";
+          break;
+        case "Rendah Lemak":
+          saran = "Hindari gorengan & santan, pilih daging tanpa lemak, konsumsi sayur & buah segar.";
+          break;
+        case "Tinggi Protein":
+          saran = "Konsumsi ikan, ayam tanpa kulit, telur, tahu, tempe, kacang-kacangan, susu rendah lemak.";
+          break;
+        default:
+          saran = "Silakan pilih jenis diet.";
+      }
+
+      output.innerHTML = `
+        <b>Nama:</b> ${nama}<br>
+        <b>Umur:</b> ${umur} tahun<br>
+        <b>Jenis Kelamin:</b> ${kelamin}<br>
+        <b>Jenis Diet:</b> ${diet}<br><br>
+        <b>Saran Konsumsi:</b> ${saran}
+      `;
+
+      resultBox.style.display = "block";
+      form.reset();
+    });
+  </script>
+</body>
+</html>
