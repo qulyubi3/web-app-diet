@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Diet Pasien</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e9f7ef;
+      border-left: 5px solid #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Formulir Diet Pasien</h2>
+    <form id="dietForm">
+      <label>Nama Pasien:</label>
+      <input type="text" id="nama" required>
+
+      <label>Umur:</label>
+      <input type="number" id="umur" required>
+
+      <label>Kelamin:</label>
+      <select id="kelamin" required>
+        <option value="">--Pilih--</option>
+        <option value="Laki-laki">Laki-laki</option>
+        <option value="Perempuan">Perempuan</option>
+      </select>
+
+      <label>Jenis Diet:</label>
+      <select id="diet" required>
+        <option value="">--Pilih--</option>
+        <option value="TKTP">Diet TKTP</option>
+        <option value="DASH">Diet DASH (Rendah Garam)</option>
+        <option value="DM">Diet Rendah Gula (DM)</option>
+      </select>
+
+      <button type="submit">Kirim</button>
+    </form>
+
+    <div id="result" class="result" style="display:none;"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('dietForm');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const nama = document.getElementById('nama').value;
+      const umur = document.getElementById('umur').value;
+      const kelamin = document.getElementById('kelamin').value;
+      const diet = document.getElementById('diet').value;
+
+      let penjelasan = "";
+      let saran = "";
+
+      if(diet === "TKTP"){
+        penjelasan = "Diet TKTP adalah diet dengan energi dan protein lebih tinggi dari normal. Diberikan untuk mengatasi malnutrisi, gagal tumbuh, atau kondisi kebutuhan metabolik meningkat.";
+        saran = "Perbanyak konsumsi sumber protein tinggi (daging, ikan, telur, tempe, tahu) dan makanan berenergi tinggi seperti nasi, kentang, ubi. Hindari makanan rendah kalori.";
+      } else if(diet === "DASH"){
+        penjelasan = "Diet DASH menekankan makanan rendah lemak jenuh, kolesterol, dan meningkatkan konsumsi buah serta sayur.";
+        saran = "Perbanyak buah, sayur, kacang-kacangan, susu rendah lemak. Batasi garam, gorengan, dan makanan olahan.";
+      } else if(diet === "DM"){
+        penjelasan = "Diet Rendah Gula membatasi konsumsi gula sederhana untuk mengontrol kadar gula darah.";
+        saran = "Hindari minuman manis, kue, sirup. Pilih karbohidrat kompleks (beras merah, oatmeal), perbanyak sayur, serta konsumsi protein tanpa lemak.";
+      }
+
+      resultDiv.style.display = "block";
+      resultDiv.innerHTML = `
+        <h3>Hasil untuk ${nama}</h3>
+        <p><b>Umur:</b> ${umur} tahun</p>
+        <p><b>Kelamin:</b> ${kelamin}</p>
+        <p><b>Jenis Diet:</b> ${diet}</p>
+        <hr>
+        <p><b>Penjelasan Diet:</b> ${penjelasan}</p>
+        <p><b>Saran Konsumsi:</b> ${saran}</p>
+      `;
+    });
+  </script>
+</body>
+</html>
